@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moto/screens/categ_screen.dart';
+import 'package:moto/screens/facts_screen.dart';
+import 'package:moto/screens/rules_screen.dart';
 import 'package:moto/widgets/button_widget.dart';
 import 'package:moto/widgets/text_widget.dart';
 
@@ -47,30 +49,42 @@ class HomeScreen extends StatelessWidget {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
-                        height: 150,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.black),
-                        child: Center(
-                          child: TextBold(
-                              text: 'Motocross Facts',
-                              fontSize: 18,
-                              color: Colors.white),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const FactsScreen()));
+                        },
+                        child: Container(
+                          height: 150,
+                          width: 150,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.black),
+                          child: Center(
+                            child: TextBold(
+                                text: 'Motocross Facts',
+                                fontSize: 18,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
-                      Container(
-                        height: 150,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.black),
-                        child: Center(
-                          child: TextBold(
-                              text: 'Rules and\nRegulations',
-                              fontSize: 18,
-                              color: Colors.white),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const RulesScreen()));
+                        },
+                        child: Container(
+                          height: 150,
+                          width: 150,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.black),
+                          child: Center(
+                            child: TextBold(
+                                text: 'Rules and\nRegulations',
+                                fontSize: 18,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
                     ]),
