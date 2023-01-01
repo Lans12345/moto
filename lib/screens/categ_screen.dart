@@ -3,6 +3,9 @@ import 'package:moto/widgets/appbar_widget.dart';
 import 'package:moto/widgets/text_widget.dart';
 
 class CategScreen extends StatelessWidget {
+  late String name;
+  late String score;
+  late String number;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +65,67 @@ class CategScreen extends StatelessWidget {
                         ),
                         minWidth: 130,
                         color: Colors.black,
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Dialog(
+                                  child: SizedBox(
+                                    height: 300,
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          TextBold(
+                                              text: 'Adding Entry',
+                                              fontSize: 18,
+                                              color: Colors.black),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 5, 20, 5),
+                                            child: TextFormField(
+                                              onChanged: (input) {
+                                                name = input;
+                                              },
+                                              decoration: const InputDecoration(
+                                                  labelText: 'Name: '),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 5, 20, 5),
+                                            child: TextFormField(
+                                              onChanged: (input) {
+                                                number = input;
+                                              },
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: const InputDecoration(
+                                                  labelText: 'Number: '),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 5, 20, 5),
+                                            child: TextFormField(
+                                              onChanged: (input) {
+                                                score = input;
+                                              },
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: const InputDecoration(
+                                                  labelText: 'Score: '),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              });
+                        },
                         child: TextBold(
                             text: 'Add Entry',
                             fontSize: 14,
