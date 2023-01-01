@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moto/screens/leaderboard_screen.dart';
 import 'package:moto/widgets/appbar_widget.dart';
 import 'package:moto/widgets/button_widget.dart';
 import 'package:moto/widgets/text_widget.dart';
@@ -158,7 +159,10 @@ class CategScreen extends StatelessWidget {
                           ),
                           minWidth: 130,
                           color: Colors.black,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => LeaderBoardScreen()));
+                          },
                           child: TextBold(
                               text: 'View Leaderbord',
                               fontSize: 14,
