@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moto/screens/categ_screen.dart';
 import 'package:moto/widgets/button_widget.dart';
 import 'package:moto/widgets/text_widget.dart';
 
@@ -22,9 +23,24 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                ButtonWidget(onPressed: () {}, text: 'Beginner'),
-                ButtonWidget(onPressed: () {}, text: 'Amature'),
-                ButtonWidget(onPressed: () {}, text: 'Pro'),
+                ButtonWidget(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CategScreen()));
+                    },
+                    text: 'Beginner'),
+                ButtonWidget(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CategScreen()));
+                    },
+                    text: 'Amature'),
+                ButtonWidget(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CategScreen()));
+                    },
+                    text: 'Pro'),
                 const SizedBox(
                   height: 50,
                 ),
