@@ -114,10 +114,20 @@ class HomeScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5),
                                 color: Colors.black),
                             child: Center(
-                              child: TextBold(
-                                  text: 'Motocross Facts',
-                                  fontSize: 18,
-                                  color: Colors.white),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.fact_check_rounded,
+                                      size: 42, color: Colors.white),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  TextBold(
+                                      text: 'Motocross Facts',
+                                      fontSize: 18,
+                                      color: Colors.white),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -133,10 +143,20 @@ class HomeScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5),
                                 color: Colors.black),
                             child: Center(
-                              child: TextBold(
-                                  text: 'Rules and\nRegulations',
-                                  fontSize: 18,
-                                  color: Colors.white),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.check_circle_outline_rounded,
+                                      size: 42, color: Colors.white),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  TextBold(
+                                      text: 'Rules and\nRegulations',
+                                      fontSize: 18,
+                                      color: Colors.white),
+                                ],
+                              ),
                             ),
                           ),
                         ),
