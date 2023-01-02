@@ -36,61 +36,55 @@ class RulesScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   TextRegular(
                       text:
-                          '1. Motocross is a type of motorcycle racing that takes place on off-road courses.',
+                          '1. Riders must have a valid racing license in order to participate in a motocross event.',
                       fontSize: 14,
                       color: Colors.black),
                   const SizedBox(height: 10),
                   TextRegular(
                       text:
-                          '2. The sport originated in the United Kingdom in the early 20th century.',
+                          '2. Riders are required to wear protective gear, including a helmet, gloves, boots, and protective suits.',
                       fontSize: 14,
                       color: Colors.black),
                   const SizedBox(height: 10),
                   TextRegular(
                       text:
-                          '3. Motocross races typically involve a number of laps around a course, and the rider with the fastest overall time is declared the winner.',
+                          '3. Only bikes that meet the required safety standards are allowed to participate in a motocross event.',
                       fontSize: 14,
                       color: Colors.black),
                   const SizedBox(height: 10),
                   TextRegular(
                       text:
-                          '4. Motocross bikes are specially designed for off-road racing and are typically much lighter and more powerful than street motorcycles.',
+                          '4. Each rider is allowed a certain number of mechanics to work on their bike, and the use of certain tools and equipment is restricted.',
                       fontSize: 14,
                       color: Colors.black),
                   const SizedBox(height: 10),
                   TextRegular(
                       text:
-                          '5. The sport is popular in many countries around the world, and there are several professional motocross leagues and competitions.',
+                          '5. Motocross courses are typically marked with flags to indicate different hazards or areas of the course. Riders must follow the flag rules at all times.',
                       fontSize: 14,
                       color: Colors.black),
                   const SizedBox(height: 10),
                   TextRegular(
                       text:
-                          '6. Motocross is physically demanding and requires a high level of skill and athleticism to participate.',
+                          '6. If a rider falls off their bike during a race, they are required to immediately move to the side of the course and wait for the other riders to pass.',
                       fontSize: 14,
                       color: Colors.black),
                   const SizedBox(height: 10),
                   TextRegular(
                       text:
-                          '7. Injuries are common in motocross, and riders are required to wear protective gear, including helmets, boots, and protective suits.',
+                          '7. If a rider is deemed to have deliberately caused an accident or interfered with another rider, they may be disqualified from the race.',
                       fontSize: 14,
                       color: Colors.black),
                   const SizedBox(height: 10),
                   TextRegular(
                       text:
-                          '8. Motocross is often held in outdoor venues, and the courses can be affected by weather conditions such as rain and mud.',
+                          '8. Motocross officials have the authority to disqualify riders for any violation of the rules or for dangerous or unsportsmanlike behavior.',
                       fontSize: 14,
                       color: Colors.black),
                   const SizedBox(height: 10),
                   TextRegular(
                       text:
-                          '9. There are several different classes of motocross competition, including classes for different bike sizes and ages of riders.',
-                      fontSize: 14,
-                      color: Colors.black),
-                  const SizedBox(height: 10),
-                  TextRegular(
-                      text:
-                          '10. Motocross is a popular spectator sport, and many races are broadcast on television or streamed online.',
+                          '9. Motocross organizers may also implement additional rules and regulations specific to the event or location.',
                       fontSize: 14,
                       color: Colors.black),
                   const SizedBox(height: 200),
