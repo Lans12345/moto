@@ -13,40 +13,37 @@ class HomeScreen extends StatelessWidget {
     Padding(
       padding: const EdgeInsets.all(5.0),
       child: Container(
-        height: 150,
         width: 300,
         decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: AssetImage('assets/images/1.jpg'),
-            ),
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.black),
+          image: const DecorationImage(
+            image: AssetImage('assets/images/1.jpg'),
+          ),
+          borderRadius: BorderRadius.circular(5),
+        ),
       ),
     ),
     Padding(
       padding: const EdgeInsets.all(5.0),
       child: Container(
-        height: 150,
         width: 300,
         decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: AssetImage('assets/images/2.jpg'),
-            ),
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.black),
+          image: const DecorationImage(
+            image: AssetImage('assets/images/2.jpg'),
+          ),
+          borderRadius: BorderRadius.circular(5),
+        ),
       ),
     ),
     Padding(
       padding: const EdgeInsets.all(5.0),
       child: Container(
-        height: 150,
         width: 300,
         decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: AssetImage('assets/images/3.jpg'),
-            ),
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.black),
+          image: const DecorationImage(
+            image: AssetImage('assets/images/3.jpg'),
+          ),
+          borderRadius: BorderRadius.circular(5),
+        ),
       ),
     ),
   ];
@@ -180,7 +177,7 @@ class HomeScreen extends StatelessWidget {
                   CarouselSlider(
                       items: items,
                       options: CarouselOptions(
-                        height: 400,
+                        height: 150,
                         aspectRatio: 16 / 9,
                         viewportFraction: 0.8,
                         initialPage: 0,
