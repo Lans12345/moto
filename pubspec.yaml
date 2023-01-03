@@ -35,8 +35,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   get_storage:
-  realm:
+  realm: ^0.2.0+alpha
   carousel_slider:
+  localstore:
+
 
 dev_dependencies:
   flutter_test:
