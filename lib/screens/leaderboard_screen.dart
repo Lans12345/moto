@@ -6,7 +6,7 @@ class LeaderBoardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppbarWidget('Leaderboard for Categ Type'),
+      appBar: AppbarWidget('Leaderboard for Categ Type', context),
       body: Container(
         decoration: const BoxDecoration(
           color: Colors.white,

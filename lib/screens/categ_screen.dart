@@ -51,7 +51,7 @@ class _CategScreenState extends State<CategScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppbarWidget('Category Type'),
+      appBar: AppbarWidget('Category Type', context),
       body: hasLoaded
           ? Container(
               decoration: const BoxDecoration(

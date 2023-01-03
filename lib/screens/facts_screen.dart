@@ -8,7 +8,7 @@ class FactsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppbarWidget('Motocross Facts'),
+      appBar: AppbarWidget('Motocross Facts', context),
       body: Container(
         decoration: const BoxDecoration(
           color: Colors.white,

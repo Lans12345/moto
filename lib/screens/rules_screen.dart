@@ -8,7 +8,7 @@ class RulesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppbarWidget('Rules and Regulations'),
+      appBar: AppbarWidget('Rules and Regulations', context),
       body: Container(
         decoration: const BoxDecoration(
           color: Colors.white,
