@@ -209,8 +209,10 @@ class _CategScreenState extends State<CategScreen> {
                                                               .set({
                                                             'name': name,
                                                             'number': number,
-                                                            'score':
-                                                                int.parse(score)
+                                                            'score': int.parse(
+                                                                score),
+                                                            'type': box
+                                                                .read('categ')
                                                           });
 
                                                           final items = await db

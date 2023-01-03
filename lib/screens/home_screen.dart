@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:moto/screens/categ_screen.dart';
 import 'package:moto/screens/facts_screen.dart';
 import 'package:moto/screens/rules_screen.dart';
@@ -8,6 +9,8 @@ import 'package:moto/widgets/text_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
+
+  final box = GetStorage();
 
   var items = [
     Padding(
@@ -80,18 +83,21 @@ class HomeScreen extends StatelessWidget {
                   ),
                   ButtonWidget(
                       onPressed: () {
+                        box.write('categ', 'beg');
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => CategScreen()));
                       },
                       text: 'Beginner'),
                   ButtonWidget(
                       onPressed: () {
+                        box.write('categ', 'ama');
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => CategScreen()));
                       },
                       text: 'Amature'),
                   ButtonWidget(
                       onPressed: () {
+                        box.write('categ', 'pro');
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => CategScreen()));
                       },
