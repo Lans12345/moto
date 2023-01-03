@@ -1,14 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:localstore/localstore.dart';
-import 'package:moto/model/user.dart';
 import 'package:moto/screens/leaderboard_screen.dart';
 import 'package:moto/widgets/appbar_widget.dart';
 import 'package:moto/widgets/button_widget.dart';
 import 'package:moto/widgets/text_widget.dart';
-import 'package:realm/realm.dart';
 
 class CategScreen extends StatefulWidget {
   @override
@@ -26,12 +22,16 @@ class _CategScreenState extends State<CategScreen> {
 
   final db = Localstore.instance;
 
+  List<String> names = [];
+
   getData() async {
     final items = await db.collection('users').get();
 
     items!.forEach((key, value) {
-      print(value);
+      names.add(value['name']);
     });
+
+    print(names);
   }
 
   @override
@@ -73,7 +73,7 @@ class _CategScreenState extends State<CategScreen> {
                               text: 'Score', fontSize: 18, color: Colors.black),
                         ),
                       ], rows: [
-                        for (int i = 0; i < 2; i++)
+                        for (int i = 0; i < 1; i++)
                           DataRow(
                             cells: [
                               DataCell(
@@ -90,8 +90,7 @@ class _CategScreenState extends State<CategScreen> {
                               ),
                               DataCell(
                                 TextRegular(
-                                    text: snapshot.data['score'].toString() +
-                                        'pts',
+                                    text: '${snapshot.data['score']}pts',
                                     fontSize: 14,
                                     color: Colors.black),
                               ),
