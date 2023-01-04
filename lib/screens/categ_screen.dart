@@ -35,13 +35,20 @@ class _CategScreenState extends State<CategScreen> {
   var hasLoaded = false;
 
   getData() async {
-    final items = await db.collection('users').get();
+    final items = await db.collection(box.read('categ')).get();
 
-    items!.forEach((key, value) {
-      names.add(value['name']);
-      numbers.add(value['number']);
-      scores.add(value['score']);
-    });
+    if (items != null) {
+      List<dynamic> values = items.values.toList();
+
+      values.sort((a, b) => a['score'].compareTo(b['score']));
+      items.forEach((key, value) {
+        names.add(value['name']);
+        numbers.add(value['number']);
+        scores.add(value['score']);
+
+        print(values);
+      });
+    }
 
     setState(() {
       hasLoaded = true;
@@ -51,7 +58,13 @@ class _CategScreenState extends State<CategScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppbarWidget('Category Type', context),
+      appBar: AppbarWidget(
+          box.read('categ') == 'ama'
+              ? 'Amature Category'
+              : box.read('categ') == 'beg'
+                  ? 'Beginner Category'
+                  : 'Pro Category',
+          context),
       body: hasLoaded
           ? Container(
               decoration: const BoxDecoration(
@@ -198,26 +211,27 @@ class _CategScreenState extends State<CategScreen> {
                                                         onPressed: () async {
                                                           final id = db
                                                               .collection(
-                                                                  'users')
+                                                                  box.read(
+                                                                      'categ'))
                                                               .doc()
                                                               .id;
 
                                                           db
                                                               .collection(
-                                                                  'users')
+                                                                  box.read(
+                                                                      'categ'))
                                                               .doc(id)
                                                               .set({
                                                             'name': name,
                                                             'number': number,
                                                             'score': int.parse(
                                                                 score),
-                                                            'type': box
-                                                                .read('categ')
                                                           });
 
                                                           final items = await db
                                                               .collection(
-                                                                  'users')
+                                                                  box.read(
+                                                                      'categ'))
                                                               .get();
 
                                                           print(items);
