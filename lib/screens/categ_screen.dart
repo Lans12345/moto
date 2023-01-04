@@ -31,6 +31,7 @@ class _CategScreenState extends State<CategScreen> {
   List<String> names = [];
   List<String> numbers = [];
   List<int> scores = [];
+  List<String> ids = [];
 
   var hasLoaded = false;
 
@@ -38,15 +39,16 @@ class _CategScreenState extends State<CategScreen> {
     final items = await db.collection(box.read('categ')).get();
 
     if (items != null) {
+      print(items);
       List<dynamic> values = items.values.toList();
 
       values.sort((a, b) => a['score'].compareTo(b['score']));
+
       items.forEach((key, value) {
         names.add(value['name']);
         numbers.add(value['number']);
         scores.add(value['score']);
-
-        print(values);
+        ids.add(value['id']);
       });
     }
 
@@ -94,6 +96,10 @@ class _CategScreenState extends State<CategScreen> {
                         label: TextRegular(
                             text: 'Score', fontSize: 18, color: Colors.black),
                       ),
+                      DataColumn(
+                        label: TextRegular(
+                            text: '', fontSize: 0, color: Colors.black),
+                      ),
                     ], rows: [
                       for (int i = 0; i < names.length; i++)
                         DataRow(
@@ -115,6 +121,27 @@ class _CategScreenState extends State<CategScreen> {
                                   text: '${scores[i]}pts',
                                   fontSize: 14,
                                   color: Colors.black),
+                            ),
+                            DataCell(
+                              Padding(
+                                padding: const EdgeInsets.only(right: 100),
+                                child: IconButton(
+                                  onPressed: () async {
+                                    db
+                                        .collection(box.read('categ'))
+                                        .doc(ids[i])
+                                        .delete();
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CategScreen()));
+                                  },
+                                  icon: Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -226,6 +253,7 @@ class _CategScreenState extends State<CategScreen> {
                                                             'number': number,
                                                             'score': int.parse(
                                                                 score),
+                                                            'id': id
                                                           });
 
                                                           final items = await db
