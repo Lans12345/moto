@@ -165,7 +165,7 @@ class _CategScreenState extends State<CategScreen> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   minWidth: 130,
-                                  color: Colors.black,
+                                  color: Colors.green,
                                   onPressed: () {
                                     showDialog(
                                         context: context,
@@ -408,7 +408,7 @@ class _CategScreenState extends State<CategScreen> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   minWidth: 130,
-                                  color: Colors.black,
+                                  color: Colors.green,
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(

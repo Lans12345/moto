@@ -13,7 +13,7 @@ PreferredSizeWidget AppbarWidget(String title, BuildContext context) {
     ),
     elevation: 3,
     foregroundColor: Colors.white,
-    backgroundColor: Colors.black,
+    backgroundColor: Colors.green,
     title: TextRegular(text: title, fontSize: 16, color: Colors.white),
     centerTitle: true,
   );

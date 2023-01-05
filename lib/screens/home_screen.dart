@@ -117,8 +117,13 @@ class HomeScreen extends StatelessWidget {
                             height: 150,
                             width: 150,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Colors.black),
+                              image: DecorationImage(
+                                  opacity: 150.0,
+                                  image: AssetImage('assets/images/a.jpg'),
+                                  fit: BoxFit.cover),
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.black,
+                            ),
                             child: Center(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -146,6 +151,9 @@ class HomeScreen extends StatelessWidget {
                             height: 150,
                             width: 150,
                             decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    opacity: 150.0,
+                                    image: AssetImage('assets/images/b.PNG')),
                                 borderRadius: BorderRadius.circular(5),
                                 color: Colors.black),
                             child: Center(
