@@ -60,13 +60,7 @@ class _CategScreenState extends State<CategScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppbarWidget(
-          box.read('categ') == 'ama'
-              ? 'Amature Category'
-              : box.read('categ') == 'beg'
-                  ? 'Beginner Category'
-                  : 'Pro Category',
-          context),
+      appBar: AppbarWidget(box.read('categ') + ' Category', context),
       body: hasLoaded
           ? Container(
               decoration: const BoxDecoration(
@@ -136,7 +130,7 @@ class _CategScreenState extends State<CategScreen> {
                                             builder: (context) =>
                                                 CategScreen()));
                                   },
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.delete,
                                     color: Colors.red,
                                   ),
