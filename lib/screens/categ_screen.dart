@@ -28,6 +28,8 @@ class _CategScreenState extends State<CategScreen> {
 
   final db = Localstore.instance;
 
+  late String pointsToAdd = '';
+
   List<String> names = [];
   List<String> numbers = [];
   List<int> scores = [];
@@ -90,10 +92,6 @@ class _CategScreenState extends State<CategScreen> {
                         label: TextRegular(
                             text: 'Score', fontSize: 18, color: Colors.black),
                       ),
-                      DataColumn(
-                        label: TextRegular(
-                            text: '', fontSize: 0, color: Colors.black),
-                      ),
                     ], rows: [
                       for (int i = 0; i < names.length; i++)
                         DataRow(
@@ -111,30 +109,116 @@ class _CategScreenState extends State<CategScreen> {
                                   color: Colors.black),
                             ),
                             DataCell(
-                              TextRegular(
-                                  text: '${scores[i]}pts',
-                                  fontSize: 14,
-                                  color: Colors.black),
-                            ),
-                            DataCell(
-                              Padding(
-                                padding: const EdgeInsets.only(right: 100),
-                                child: IconButton(
-                                  onPressed: () async {
-                                    db
-                                        .collection(box.read('categ'))
-                                        .doc(ids[i])
-                                        .delete();
-                                    Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CategScreen()));
-                                  },
-                                  icon: const Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
+                              Row(
+                                children: [
+                                  TextRegular(
+                                      text: '${scores[i]}pts',
+                                      fontSize: 14,
+                                      color: Colors.black),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      showDialog(
+                                          context: context,
+                                          builder: ((context) {
+                                            return AlertDialog(
+                                              content: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        20, 5, 20, 5),
+                                                child: TextFormField(
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  onChanged: (input) {
+                                                    pointsToAdd = input;
+                                                  },
+                                                  decoration:
+                                                      const InputDecoration(
+                                                          labelText:
+                                                              'Points to Add: '),
+                                                ),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: (() {
+                                                      final id = db
+                                                          .collection(
+                                                              box.read('categ'))
+                                                          .doc()
+                                                          .id;
+                                                      db
+                                                          .collection(
+                                                              box.read('categ'))
+                                                          .doc(ids[i])
+                                                          .delete();
+
+                                                      db
+                                                          .collection(
+                                                              box.read('categ'))
+                                                          .doc(id)
+                                                          .set({
+                                                        'name': names[i],
+                                                        'number': numbers[i],
+                                                        'score': (scores[i] +
+                                                            int.parse(
+                                                                pointsToAdd)),
+                                                        'id': id
+                                                      });
+
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(SnackBar(
+                                                              content: TextRegular(
+                                                                  text:
+                                                                      'Updated Succesfully!',
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .white)));
+                                                      Navigator.of(context)
+                                                          .pushReplacement(
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          CategScreen()));
+                                                    }),
+                                                    child: TextBold(
+                                                        text: 'Add Points',
+                                                        fontSize: 15,
+                                                        color: Colors.black))
+                                              ],
+                                            );
+                                          }));
+                                    },
+                                    child: const Icon(
+                                      Icons.add,
+                                      color: Colors.blue,
+                                    ),
                                   ),
-                                ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      db
+                                          .collection(box.read('categ'))
+                                          .doc(ids[i])
+                                          .delete();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: TextRegular(
+                                                  text: 'Deleted Succesfully!',
+                                                  fontSize: 12,
+                                                  color: Colors.white)));
+                                      Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CategScreen()));
+                                    },
+                                    child: const Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
