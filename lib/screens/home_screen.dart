@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String nameOfCateg = '';
 
   List<String> names = [];
+    List<String> ids = [];
 
   var hasLoaded = false;
 
@@ -38,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (items != null) {
       items.forEach((key, value) {
         names.add(value['nameOfCateg']);
+        ids.add(value['id']);
       });
     }
 
@@ -180,6 +182,55 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: names.length,
                               itemBuilder: ((context, index) {
                                 return ButtonWidget(
+                                  onHold: () {
+                                    showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                         
+                          content: const Text(
+                            'Are you sure you want to delete this category?',
+                            style: TextStyle(fontFamily: 'QRegular'),
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                              onPressed: () => Navigator.of(context).pop(true),
+                              child: const Text(
+                                'Close',
+                                style: TextStyle(
+                                    fontFamily: 'QRegular',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            FlatButton(
+                              onPressed: () async {
+
+                                
+                                db
+                                                          .collection(
+                                                              'Categ')
+                                                          .doc(ids[index])
+                                                          .delete();
+
+                                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: TextRegular(text: 'Category Deleted Succesfully!', fontSize: 12, color: Colors.white)));
+                              
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) => HomeScreen()));
+                                           Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) => HomeScreen()));
+                              },
+                              child: const Text(
+                                'Continue',
+                                style: TextStyle(
+                                    fontFamily: 'QRegular',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ));
+                                  },
+                                  
                                     onPressed: () {
                                       box.write('categ', names[index]);
                                       Navigator.of(context).push(
