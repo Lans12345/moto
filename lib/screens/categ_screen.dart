@@ -20,7 +20,7 @@ class _CategScreenState extends State<CategScreen> {
 
   late String name;
 
-  late String score;
+  late String score = '0';
 
   late String number;
 
@@ -290,23 +290,6 @@ class _CategScreenState extends State<CategScreen> {
                                                             const InputDecoration(
                                                                 labelText:
                                                                     'Number: '),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets
-                                                              .fromLTRB(
-                                                          20, 5, 20, 5),
-                                                      child: TextFormField(
-                                                        onChanged: (input) {
-                                                          score = input;
-                                                        },
-                                                        keyboardType:
-                                                            TextInputType
-                                                                .number,
-                                                        decoration:
-                                                            const InputDecoration(
-                                                                labelText:
-                                                                    'Score: '),
                                                       ),
                                                     ),
                                                     const SizedBox(
