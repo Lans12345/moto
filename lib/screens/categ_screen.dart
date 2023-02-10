@@ -19,6 +19,8 @@ class _CategScreenState extends State<CategScreen> {
   }
 
   late String name;
+  late String firstPoint = '0';
+  late String secondPoint = '0';
 
   late String score = '0';
 
@@ -34,6 +36,9 @@ class _CategScreenState extends State<CategScreen> {
   List<String> numbers = [];
   List<int> scores = [];
   List<String> ids = [];
+
+  List<int> firstPoints = [];
+  List<int> secondPoints = [];
 
   var hasLoaded = false;
 
@@ -51,6 +56,8 @@ class _CategScreenState extends State<CategScreen> {
         numbers.add(value['number']);
         scores.add(value['score']);
         ids.add(value['id']);
+        firstPoints.add(value['firstPoint']);
+        secondPoints.add(value['secondPoint']);
       });
     }
 
@@ -68,10 +75,10 @@ class _CategScreenState extends State<CategScreen> {
               decoration: const BoxDecoration(
                 color: Colors.white,
                 image: DecorationImage(
-                  opacity: 0.25,
+                  opacity: 0.40,
                   fit: BoxFit.cover,
                   image: AssetImage(
-                    'assets/images/back.jpg',
+                    'assets/images/c.jpg',
                   ),
                 ),
               ),
@@ -111,88 +118,248 @@ class _CategScreenState extends State<CategScreen> {
                             DataCell(
                               Row(
                                 children: [
-                                  TextRegular(
-                                      text: '${scores[i]}pts',
-                                      fontSize: 14,
-                                      color: Colors.black),
-                                  GestureDetector(
-                                    onTap: () async {
-                                      showDialog(
-                                          context: context,
-                                          builder: ((context) {
-                                            return AlertDialog(
-                                              content: Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        20, 5, 20, 5),
-                                                child: TextFormField(
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  onChanged: (input) {
-                                                    pointsToAdd = input;
-                                                  },
-                                                  decoration:
-                                                      const InputDecoration(
-                                                          labelText:
-                                                              'Points to Add: '),
-                                                ),
-                                              ),
-                                              actions: [
-                                                TextButton(
-                                                    onPressed: (() {
-                                                      final id = db
-                                                          .collection(
-                                                              box.read('categ'))
-                                                          .doc()
-                                                          .id;
-                                                      db
-                                                          .collection(
-                                                              box.read('categ'))
-                                                          .doc(ids[i])
-                                                          .delete();
+                                  firstPoints[i] == 0
+                                      ? GestureDetector(
+                                          onTap: (() {
+                                            showDialog(
+                                                context: context,
+                                                builder: ((context) {
+                                                  return AlertDialog(
+                                                    content: Padding(
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          20, 5, 20, 5),
+                                                      child: TextFormField(
+                                                        keyboardType:
+                                                            TextInputType
+                                                                .number,
+                                                        onChanged: (input) {
+                                                          firstPoint = input;
+                                                        },
+                                                        decoration:
+                                                            const InputDecoration(
+                                                                labelText:
+                                                                    'Points: '),
+                                                      ),
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                          onPressed: (() {
+                                                            final id = db
+                                                                .collection(
+                                                                    box.read(
+                                                                        'categ'))
+                                                                .doc()
+                                                                .id;
+                                                            db
+                                                                .collection(
+                                                                    box.read(
+                                                                        'categ'))
+                                                                .doc(ids[i])
+                                                                .delete();
 
-                                                      db
-                                                          .collection(
-                                                              box.read('categ'))
-                                                          .doc(id)
-                                                          .set({
-                                                        'name': names[i],
-                                                        'number': numbers[i],
-                                                        'score': (scores[i] +
-                                                            int.parse(
-                                                                pointsToAdd)),
-                                                        'id': id
-                                                      });
+                                                            db
+                                                                .collection(
+                                                                    box.read(
+                                                                        'categ'))
+                                                                .doc(id)
+                                                                .set({
+                                                              'name': names[i],
+                                                              'number':
+                                                                  numbers[i],
+                                                              'score': int.parse(
+                                                                      firstPoint) +
+                                                                  secondPoints[
+                                                                      i] +
+                                                                  scores[i],
+                                                              'id': id,
+                                                              'firstPoint': int
+                                                                      .parse(
+                                                                          firstPoint) +
+                                                                  firstPoints[
+                                                                      i],
+                                                              'secondPoint': int
+                                                                      .parse(
+                                                                          secondPoint) +
+                                                                  secondPoints[
+                                                                      i]
+                                                            });
 
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(SnackBar(
-                                                              content: TextRegular(
-                                                                  text:
-                                                                      'Updated Succesfully!',
-                                                                  fontSize: 12,
-                                                                  color: Colors
-                                                                      .white)));
-                                                      Navigator.of(context)
-                                                          .pushReplacement(
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          CategScreen()));
-                                                    }),
-                                                    child: TextBold(
-                                                        text: 'Add Points',
-                                                        fontSize: 15,
-                                                        color: Colors.black))
-                                              ],
-                                            );
-                                          }));
-                                    },
-                                    child: const Icon(
-                                      Icons.add,
-                                      color: Colors.blue,
-                                    ),
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(SnackBar(
+                                                                    content: TextRegular(
+                                                                        text:
+                                                                            'Updated Succesfully!',
+                                                                        fontSize:
+                                                                            12,
+                                                                        color: Colors
+                                                                            .white)));
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pushReplacement(
+                                                                    MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                CategScreen()));
+                                                          }),
+                                                          child: TextBold(
+                                                              text:
+                                                                  'Add Points',
+                                                              fontSize: 15,
+                                                              color:
+                                                                  Colors.black))
+                                                    ],
+                                                  );
+                                                }));
+                                          }),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            height: 35,
+                                            width: 70,
+                                            child: Center(
+                                              child: TextRegular(
+                                                  text: '1st pts',
+                                                  fontSize: 12,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        )
+                                      : secondPoints[i] != 0 &&
+                                              firstPoints[i] != 0
+                                          ? TextBold(
+                                              text:
+                                                  '${secondPoints[i] + firstPoints[i]}pts',
+                                              fontSize: 14,
+                                              color: Colors.black)
+                                          : TextBold(
+                                              text: firstPoints[i].toString(),
+                                              fontSize: 14,
+                                              color: Colors.black),
+                                  const SizedBox(
+                                    width: 10,
                                   ),
+                                  secondPoints[i] == 0
+                                      ? GestureDetector(
+                                          onTap: (() {
+                                            showDialog(
+                                                context: context,
+                                                builder: ((context) {
+                                                  return AlertDialog(
+                                                    content: Padding(
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          20, 5, 20, 5),
+                                                      child: TextFormField(
+                                                        keyboardType:
+                                                            TextInputType
+                                                                .number,
+                                                        onChanged: (input) {
+                                                          secondPoint = input;
+                                                        },
+                                                        decoration:
+                                                            const InputDecoration(
+                                                                labelText:
+                                                                    'Points: '),
+                                                      ),
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                          onPressed: (() {
+                                                            final id = db
+                                                                .collection(
+                                                                    box.read(
+                                                                        'categ'))
+                                                                .doc()
+                                                                .id;
+                                                            db
+                                                                .collection(
+                                                                    box.read(
+                                                                        'categ'))
+                                                                .doc(ids[i])
+                                                                .delete();
+
+                                                            db
+                                                                .collection(
+                                                                    box.read(
+                                                                        'categ'))
+                                                                .doc(id)
+                                                                .set({
+                                                              'name': names[i],
+                                                              'number':
+                                                                  numbers[i],
+                                                              'score': firstPoints[
+                                                                      i] +
+                                                                  int.parse(
+                                                                      secondPoint),
+                                                              'id': id,
+                                                              'firstPoint': int
+                                                                      .parse(
+                                                                          firstPoint) +
+                                                                  firstPoints[
+                                                                      i],
+                                                              'secondPoint': int
+                                                                      .parse(
+                                                                          secondPoint) +
+                                                                  secondPoints[
+                                                                      i]
+                                                            });
+
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(SnackBar(
+                                                                    content: TextRegular(
+                                                                        text:
+                                                                            'Updated Succesfully!',
+                                                                        fontSize:
+                                                                            12,
+                                                                        color: Colors
+                                                                            .white)));
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pushReplacement(
+                                                                    MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                CategScreen()));
+                                                          }),
+                                                          child: TextBold(
+                                                              text:
+                                                                  'Add Points',
+                                                              fontSize: 15,
+                                                              color:
+                                                                  Colors.black))
+                                                    ],
+                                                  );
+                                                }));
+                                          }),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            height: 35,
+                                            width: 70,
+                                            child: Center(
+                                              child: TextRegular(
+                                                  text: '2nd pts',
+                                                  fontSize: 12,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        )
+                                      : secondPoints[i] != 0 &&
+                                              firstPoints[i] != 0
+                                          ? const SizedBox()
+                                          : TextBold(
+                                              text: secondPoints[i].toString(),
+                                              fontSize: 14,
+                                              color: Colors.black),
                                   const SizedBox(
                                     width: 20,
                                   ),
@@ -314,7 +481,9 @@ class _CategScreenState extends State<CategScreen> {
                                                             'number': number,
                                                             'score': int.parse(
                                                                 score),
-                                                            'id': id
+                                                            'id': id,
+                                                            'firstPoint': 0,
+                                                            'secondPoint': 0,
                                                           });
 
                                                           final items = await db
@@ -456,7 +625,7 @@ class _CategScreenState extends State<CategScreen> {
                                         });
                                   },
                                   child: TextBold(
-                                      text: 'Add Entry',
+                                      text: 'Add Racer',
                                       fontSize: 14,
                                       color: Colors.white),
                                 ),
@@ -477,7 +646,7 @@ class _CategScreenState extends State<CategScreen> {
                                                 LeaderBoardScreen()));
                                   },
                                   child: TextBold(
-                                      text: 'View Leaderbord',
+                                      text: 'View Result',
                                       fontSize: 14,
                                       color: Colors.white),
                                 ),

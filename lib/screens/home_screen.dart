@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String nameOfCateg = '';
 
   List<String> names = [];
-    List<String> ids = [];
+  List<String> ids = [];
 
   var hasLoaded = false;
 
@@ -182,55 +182,71 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: names.length,
                               itemBuilder: ((context, index) {
                                 return ButtonWidget(
-                                  onHold: () {
-                                    showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                         
-                          content: const Text(
-                            'Are you sure you want to delete this category?',
-                            style: TextStyle(fontFamily: 'QRegular'),
-                          ),
-                          actions: <Widget>[
-                            FlatButton(
-                              onPressed: () => Navigator.of(context).pop(true),
-                              child: const Text(
-                                'Close',
-                                style: TextStyle(
-                                    fontFamily: 'QRegular',
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            FlatButton(
-                              onPressed: () async {
-
-                                
-                                db
-                                                          .collection(
-                                                              'Categ')
+                                    onHold: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                                content: const Text(
+                                                  'Are you sure you want to delete this category?',
+                                                  style: TextStyle(
+                                                      fontFamily: 'QRegular'),
+                                                ),
+                                                actions: <Widget>[
+                                                  MaterialButton(
+                                                    onPressed: () =>
+                                                        Navigator.of(context)
+                                                            .pop(true),
+                                                    child: const Text(
+                                                      'Close',
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'QRegular',
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  MaterialButton(
+                                                    onPressed: () async {
+                                                      db
+                                                          .collection('Categ')
                                                           .doc(ids[index])
                                                           .delete();
 
-                                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: TextRegular(text: 'Category Deleted Succesfully!', fontSize: 12, color: Colors.white)));
-                              
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) => HomeScreen()));
-                                           Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) => HomeScreen()));
-                              },
-                              child: const Text(
-                                'Continue',
-                                style: TextStyle(
-                                    fontFamily: 'QRegular',
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ));
-                                  },
-                                  
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(SnackBar(
+                                                              content: TextRegular(
+                                                                  text:
+                                                                      'Category Deleted Succesfully!',
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .white)));
+
+                                                      Navigator.of(context)
+                                                          .pushReplacement(
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          HomeScreen()));
+                                                      Navigator.of(context)
+                                                          .pushReplacement(
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          HomeScreen()));
+                                                    },
+                                                    child: const Text(
+                                                      'Continue',
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'QRegular',
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ));
+                                    },
                                     onPressed: () {
                                       box.write('categ', names[index]);
                                       Navigator.of(context).push(
@@ -261,9 +277,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     image: const DecorationImage(
                                         opacity: 150.0,
                                         image:
-                                            AssetImage('assets/images/a.jpg'),
+                                            AssetImage('assets/images/h6.jpg'),
                                         fit: BoxFit.cover),
-                                    borderRadius: BorderRadius.circular(5),
+                                    borderRadius: BorderRadius.circular(10),
                                     color: Colors.black,
                                   ),
                                   child: Center(
@@ -271,14 +287,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        const Icon(Icons.fact_check_rounded,
-                                            size: 42, color: Colors.white),
                                         const SizedBox(
                                           height: 10,
                                         ),
                                         TextBold(
                                             text: 'Motocross Facts',
-                                            fontSize: 18,
+                                            fontSize: 20,
                                             color: Colors.white),
                                       ],
                                     ),
@@ -298,24 +312,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                       image: const DecorationImage(
                                           opacity: 150.0,
                                           image: AssetImage(
-                                              'assets/images/b.PNG')),
-                                      borderRadius: BorderRadius.circular(5),
+                                              'assets/images/stop.png')),
+                                      borderRadius: BorderRadius.circular(10),
                                       color: Colors.black),
                                   child: Center(
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        const Icon(
-                                            Icons.check_circle_outline_rounded,
-                                            size: 42,
-                                            color: Colors.white),
                                         const SizedBox(
                                           height: 10,
                                         ),
                                         TextBold(
                                             text: 'Rules and\nRegulations',
-                                            fontSize: 18,
+                                            fontSize: 20,
                                             color: Colors.white),
                                       ],
                                     ),

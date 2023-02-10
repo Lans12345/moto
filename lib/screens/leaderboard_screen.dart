@@ -65,10 +65,10 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
               decoration: const BoxDecoration(
                 color: Colors.white,
                 image: DecorationImage(
-                  opacity: 0.25,
+                  opacity: 0.40,
                   fit: BoxFit.cover,
                   image: AssetImage(
-                    'assets/images/back.jpg',
+                    'assets/images/L.jpg',
                   ),
                 ),
               ),
