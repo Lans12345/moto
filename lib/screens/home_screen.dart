@@ -5,6 +5,9 @@ import 'package:localstore/localstore.dart';
 import 'package:moto/screens/categ_screen.dart';
 import 'package:moto/screens/facts_screen.dart';
 import 'package:moto/screens/rules_screen.dart';
+import 'package:moto/screens/slideshow_screens/first_page.dart';
+import 'package:moto/screens/slideshow_screens/second_page.dart';
+import 'package:moto/screens/slideshow_screens/third_page.dart';
 import 'package:moto/widgets/button_widget.dart';
 import 'package:moto/widgets/text_widget.dart';
 
@@ -48,47 +51,64 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  var items = [
-    Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Container(
-        width: 300,
-        decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage('assets/images/1.jpg'),
-          ),
-          borderRadius: BorderRadius.circular(5),
-        ),
-      ),
-    ),
-    Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Container(
-        width: 300,
-        decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage('assets/images/2.jpg'),
-          ),
-          borderRadius: BorderRadius.circular(5),
-        ),
-      ),
-    ),
-    Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Container(
-        width: 300,
-        decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage('assets/images/3.jpg'),
-          ),
-          borderRadius: BorderRadius.circular(5),
-        ),
-      ),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    var items = [
+      Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const FirstPage()));
+          },
+          child: Container(
+            width: 300,
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                image: AssetImage('assets/images/1.jpg'),
+              ),
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const SecondPage()));
+          },
+          child: Container(
+            width: 300,
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                image: AssetImage('assets/images/2.jpg'),
+              ),
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const ThirdPage()));
+          },
+          child: Container(
+            width: 300,
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                image: AssetImage('assets/images/3.jpg'),
+              ),
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+        ),
+      ),
+    ];
     return Scaffold(
       backgroundColor: Colors.grey[200],
       body: hasLoaded
@@ -227,13 +247,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               MaterialPageRoute(
                                                                   builder:
                                                                       (context) =>
-                                                                          HomeScreen()));
+                                                                          const HomeScreen()));
                                                       Navigator.of(context)
                                                           .pushReplacement(
                                                               MaterialPageRoute(
                                                                   builder:
                                                                       (context) =>
-                                                                          HomeScreen()));
+                                                                          const HomeScreen()));
                                                     },
                                                     child: const Text(
                                                       'Continue',
