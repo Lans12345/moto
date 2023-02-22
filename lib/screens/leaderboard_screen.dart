@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:localstore/localstore.dart';
 import 'package:moto/screens/categ_screen.dart';
-import 'package:moto/widgets/appbar_widget.dart';
+import 'package:moto/screens/home_screen.dart';
 import 'package:moto/widgets/text_widget.dart';
+import 'package:screenshot/screenshot.dart';
 
 class LeaderBoardScreen extends StatefulWidget {
   @override
@@ -28,6 +30,8 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
   List<int> scores = [];
 
   var hasLoaded = false;
+
+  final controller = ScreenshotController();
 
   getData() async {
     final items = await db.collection(box.read('categ')).get();
@@ -79,13 +83,48 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
     return WillPopScope(
       onWillPop: onWillPop,
       child: Scaffold(
-        appBar: AppbarWidget(
-            box.read('categ') == 'ama'
-                ? 'Leaderboard for Amature Category'
-                : box.read('categ') == 'beg'
-                    ? 'Leaderboard for Beginner Category'
-                    : 'Leaderboard for Pro Category',
-            context),
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const HomeScreen()));
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
+          elevation: 3,
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.green,
+          title: TextRegular(
+              text: box.read('categ') == 'ama'
+                  ? 'Leaderboard for Amature Category'
+                  : box.read('categ') == 'beg'
+                      ? 'Leaderboard for Beginner Category'
+                      : 'Leaderboard for Pro Category',
+              fontSize: 16,
+              color: Colors.white),
+          centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: (() {
+                  controller
+                      .capture(delay: const Duration(milliseconds: 10))
+                      .then((capturedImage) async {
+                    final result = await ImageGallerySaver.saveImage(
+                        capturedImage!,
+                        quality: 60,
+                        name: 'leaderboard');
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: TextRegular(
+                            text: 'Leaderboard added to gallery!',
+                            fontSize: 12,
+                            color: Colors.white)));
+                  }).catchError((onError) {
+                    print(onError);
+                  });
+                }),
+                icon: const Icon(Icons.photo_size_select_actual_rounded))
+          ],
+        ),
         body: hasLoaded
             ? Container(
                 height: double.infinity,
@@ -103,52 +142,61 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      DataTable(columns: [
-                        DataColumn(
-                          label: TextRegular(
-                              text: 'Name', fontSize: 18, color: Colors.black),
-                        ),
-                        DataColumn(
-                          label: TextRegular(
-                              text: 'Number',
-                              fontSize: 18,
-                              color: Colors.black),
-                        ),
-                        DataColumn(
-                          label: TextRegular(
-                              text: 'Score', fontSize: 18, color: Colors.black),
-                        ),
-                        DataColumn(
-                          label: TextRegular(
-                              text: '', fontSize: 18, color: Colors.black),
-                        ),
-                      ], rows: [
-                        for (int i = 0; i < names.length; i++)
-                          DataRow(cells: [
-                            DataCell(
-                              TextRegular(
-                                  text: names[i],
-                                  fontSize: 14,
-                                  color: Colors.black),
-                            ),
-                            DataCell(
-                              TextRegular(
-                                  text: numbers[i],
-                                  fontSize: 14,
-                                  color: Colors.black),
-                            ),
-                            DataCell(
-                              TextRegular(
-                                  text: '${scores[i]}pts',
-                                  fontSize: 14,
-                                  color: Colors.black),
-                            ),
-                            DataCell(
-                              TextRegular(
-                                  text: '', fontSize: 14, color: Colors.black),
-                            ),
-                          ]),
-                      ]),
+                      Screenshot(
+                        controller: controller,
+                        child: DataTable(columns: [
+                          DataColumn(
+                            label: TextRegular(
+                                text: 'Name',
+                                fontSize: 18,
+                                color: Colors.black),
+                          ),
+                          DataColumn(
+                            label: TextRegular(
+                                text: 'Number',
+                                fontSize: 18,
+                                color: Colors.black),
+                          ),
+                          DataColumn(
+                            label: TextRegular(
+                                text: 'Score',
+                                fontSize: 18,
+                                color: Colors.black),
+                          ),
+                          DataColumn(
+                            label: TextRegular(
+                                text: '', fontSize: 18, color: Colors.black),
+                          ),
+                        ], rows: [
+                          for (int i = 0; i < names.length; i++)
+                            DataRow(cells: [
+                              DataCell(
+                                TextRegular(
+                                    text: names[i],
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
+                              DataCell(
+                                TextRegular(
+                                    text: numbers[i],
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
+                              DataCell(
+                                TextRegular(
+                                    text: '${scores[i]}pts',
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
+                              DataCell(
+                                TextRegular(
+                                    text: '',
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
+                            ]),
+                        ]),
+                      ),
                     ],
                   ),
                 ),

@@ -37,6 +37,8 @@ dependencies:
   get_storage:
   carousel_slider:
   localstore:
+  screenshot: ^1.3.0
+  image_gallery_saver:
 
 
 dev_dependencies:
