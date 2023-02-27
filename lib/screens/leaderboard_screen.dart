@@ -1,11 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:localstore/localstore.dart';
 import 'package:moto/screens/categ_screen.dart';
 import 'package:moto/screens/home_screen.dart';
 import 'package:moto/widgets/text_widget.dart';
+import 'package:printing/printing.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 class LeaderBoardScreen extends StatefulWidget {
   @override
@@ -52,6 +55,25 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
       hasLoaded = true;
     });
   }
+
+  final doc = pw.Document();
+
+  printing(Uint8List capturedImage) async {
+    doc.addPage(pw.Page(
+      build: (pw.Context context) {
+        return pw.Container(
+            height: double.infinity,
+            width: double.infinity,
+            child: pw.Image(
+              pw.MemoryImage(capturedImage),
+            ));
+      },
+    ));
+
+    await Printing.layoutPdf(onLayout: (format) async => doc.save());
+  }
+
+  final ssController = ScreenshotController();
 
   Future<bool> onWillPop() async {
     final shouldPop = await showDialog(
@@ -106,21 +128,28 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
           actions: [
             IconButton(
                 onPressed: (() {
-                  controller
+                  ssController
                       .capture(delay: const Duration(milliseconds: 10))
                       .then((capturedImage) async {
-                    final result = await ImageGallerySaver.saveImage(
-                        capturedImage!,
-                        quality: 60,
-                        name: 'leaderboard');
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: TextRegular(
-                            text: 'Leaderboard added to gallery!',
-                            fontSize: 12,
-                            color: Colors.white)));
+                    printing(capturedImage!);
                   }).catchError((onError) {
                     print(onError);
                   });
+                  // controller
+                  //     .capture(delay: const Duration(milliseconds: 10))
+                  //     .then((capturedImage) async {
+                  //   final result = await ImageGallerySaver.saveImage(
+                  //       capturedImage!,
+                  //       quality: 60,
+                  //       name: 'leaderboard');
+                  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  //       content: TextRegular(
+                  //           text: 'Leaderboard added to gallery!',
+                  //           fontSize: 12,
+                  //           color: Colors.white)));
+                  // }).catchError((onError) {
+                  //   print(onError);
+                  // });
                 }),
                 icon: const Icon(Icons.photo_size_select_actual_rounded))
           ],
@@ -143,7 +172,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                   child: Column(
                     children: [
                       Screenshot(
-                        controller: controller,
+                        controller: ssController,
                         child: DataTable(columns: [
                           DataColumn(
                             label: TextRegular(
